@@ -24,12 +24,14 @@ export default {
             console.log('Testing insert functionality of the database')
             let zeke = { firstname: 'John', lastname: 'Ezekiel'}
             this.$store.dispatch('insert', zeke) // insert person into db
-            this.$store.dispatch('query') // load list into vuex
-            let data = this.$store.state.data
-            console.log(data)
         },
         testQuery() {
             console.log('Testing query functionality of the database')
+            this.$store.dispatch('query') // load list into vuex
+            let data = this.$store.state.data
+            for(var i = 0; i < data.length; i++) {
+                console.log('First name: ' + data[i].firstname + ', Last Name: ' + data[i].lastname)
+            }
         }
     },
     data () {
