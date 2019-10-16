@@ -16,15 +16,8 @@
                             </FormattedString>
                         </TextView>
 
-               <StackLayout col="0" row="1" orientation="horizontal"
-                backgroundColor="#FFFFFF" height="60">
-                <GridLayout rows="*" columns="*,*,*,*,*">
-                    <Image col="1" row="0" @tap="$navigateTo(addFriendPage)" height="25"
-                        width="25" margin="10" src="~/assets/images/shape1@3x.png"></Image>
-                    <Image col="2" row="0" @tap="testQuery()" height="60"
-                        width="60" margin="10" src="~/assets/images/home@3x.png"></Image>
-                </GridLayout>
-            </StackLayout>
+                        <FriendlyMenu></FriendlyMenu>
+
 
 </GridLayout>
 </Page>
@@ -34,7 +27,11 @@
 
 import App from './App';
 import AddFriend from './AddFriend';
+import FriendlyMenu from './FriendlyMenu';
 export default {
+    components: {
+        FriendlyMenu
+    },
     methods: {
         testInsert() {
             console.log('Testing insert functionality of the database')
@@ -62,7 +59,8 @@ export default {
     },
     data () {
         return {
-            addFriendPage: AddFriend
+            addFriendPage: AddFriend,
+            FriendlyMenu: FriendlyMenu
         };
     },
 }
