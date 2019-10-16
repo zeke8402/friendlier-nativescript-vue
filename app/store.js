@@ -18,21 +18,23 @@ const store = new Vuex.Store({
       for (var i = 0; i < data.data.length; i++) {
         state.data.push({
           firstname: data.data[i][0],
-          lastname: data.data[i][1]
+          lastname: data.data[i][1],
+          birthday: data.data[i][2]
         });
       }
     },
     save(state, data) {
       state.data.push({
         firstname: data.data.firstname,
-        lastname: data.data.lastname
+        lastname: data.data.lastname,
+        birthday: data.birthday
       });
     },
   },
   actions: {
     init(context) {
       (new Sqlite("my.db")).then(db => {
-        db.execSQL("CREATE TABLE IF NOT EXISTS friends (id INTEGER PRIMARY KEY AUTOINCREMENT, first_name TEXT, last_name TEXT)").then(id => {
+        db.execSQL("CREATE TABLE IF NOT EXISTS friends (id INTEGER PRIMARY KEY AUTOINCREMENT, first_name TEXT, last_name TEXT, birthday DATE)").then(id => {
           context.commit("init", { database: db });
         }, error => {
           console.log("CREATE TABLE ERROR", error);
