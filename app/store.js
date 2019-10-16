@@ -92,20 +92,6 @@ const store = new Vuex.Store({
     },
     getFriendData(context) {
       /* @todo */
-    },
-    insert(context, data) {
-      context.state.database.execSQL("INSERT INTO people (firstname, lastname) VALUES (?, ?)", [data.firstname, data.lastname]).then(id => {
-        context.commit("save", { data: data });
-      }, error => {
-        console.log("INSERT ERROR", error);
-      });
-    },
-    query(context) {
-      context.state.database.all("SELECT firstname, lastname FROM people", []).then(result => {
-        context.commit("load", { data: result });
-      }, error => {
-        console.log("SELECT ERROR", error);
-      });
     }
   }
 });
