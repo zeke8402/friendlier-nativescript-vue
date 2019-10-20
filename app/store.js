@@ -19,7 +19,6 @@ const store = new Vuex.Store({
         state.data.push({
           firstname: data.data[i][0],
           lastname: data.data[i][1],
-          birthday: data.data[i][2]
         });
       }
     },
@@ -27,7 +26,6 @@ const store = new Vuex.Store({
       state.data.push({
         firstname: data.data.firstname,
         lastname: data.data.lastname,
-        birthday: data.birthday
       });
     },
   },
