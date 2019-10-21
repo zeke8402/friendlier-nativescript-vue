@@ -7,25 +7,27 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
   state: {
     database: null,
-    data: []
+    data: [],
+    friends: [],
+    isDevMode: true,
   },
   mutations: {
     init(state, data) {
       state.database = data.database;
     },
-    load(state, data) {
-      state.data = [];
+    loadFriends(state, data) {
+      state.friends = [];
       for (var i = 0; i < data.data.length; i++) {
-        state.data.push({
-          firstname: data.data[i][0],
-          lastname: data.data[i][1],
+        state.friends.push({
+          firstName: data.data[i][0],
+          lastName: data.data[i][1]
         });
       }
     },
-    save(state, data) {
-      state.data.push({
-        firstname: data.data.firstname,
-        lastname: data.data.lastname,
+    updateFriends(state, data) {
+      state.friends.push({
+        firstName: data.data.first_name,
+        lastName: data.data.last_name,
       });
     },
   },
@@ -49,21 +51,28 @@ const store = new Vuex.Store({
         }, error => {
           console.log("CREATE TABLE ERROR", error);
         });
+
+        console.log('The dev mode is ' + this.state.isDevMode);
+        if(this.state.isDevMode) {
+          db.execSQL("INSERT INTO friends(first_name, last_name) VALUES (?, ?)", ['Sample', 'Person']);
+        }
       }, error => {
         console.log("OPEN DB ERROR", error);
       });
+
     },
     createFriend(context, data) {
       context.state.database.execSQL("INSERT INTO friends(first_name, last_name) VALUES (?, ?)", [data.first_name, data.last_name]).then(id => {
-        context.commit("save", { data: data});
+        context.commit("updateFriends", { data: data});
       }, error => {
         console.log("INSERT ERROR", error);
       });
     },
+    /*
     createFriendLog(context, data) {
       context.state.database.execSQL("INSERT INTO friend_logs (friend_id, log_date, log_rating, log_maximum, log_notes) VALUES (?, ?, ?, ?, ?)", 
         [data.log_date, data.log_rating, data.log_maximum, data.log_notes]).then(id => {
-          context.commit("save", { data: data });
+          context.commit("saveFriend", { data: data });
       }, error => {
         console.log("INSERT ERROR", error);
       });
@@ -78,20 +87,31 @@ const store = new Vuex.Store({
     },
     getFriend(context, data) {
       context.state.database.all("SELECT * FROM friends where id = ?", [data.id]).then(result => {
-        context.commit("load", { data: result });
+        context.commit("loadFriends", { data: result });
       }, error => {
         console.log("SELECT ERROR", error);
       });
     },
+    */
     getAllFriends(context) {
-      context.state.database.all("SELECT * FROM friends", []).then(result => {
-        context.commit("load", { data: result });
+      context.state.database.all("SELECT first_name, last_name FROM friends").then(result => {
+        context.commit("loadFriends", { data: result });
       }, error => {
         console.log("SELECT ERROR", error);
       });
     },
     getFriendData(context) {
       /* @todo */
+    },
+    /**
+     * Destructors
+     */
+    clearFriends(context) {
+      context.state.database.execSQL("DELETE FROM friends").then(result => {
+        context.commit("loadFriends", {data: {}});
+      }, error => {
+        console.log("CLEAR ERROR", error);
+      });
     }
   }
 });

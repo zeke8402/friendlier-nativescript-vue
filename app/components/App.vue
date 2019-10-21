@@ -1,80 +1,61 @@
 <template>
-<Page>
-<GridLayout orientation="vertical" width="100%" height="100%" columns="*"
-            rows="*,auto">
+  <Page>
+    <GridLayout orientation="vertical" width="100%" height="100%" columns="*" rows="*,auto">
+      <ListView for="friend in friends">
+        <v-template>
+          <Label :text="friend.firstName + ' ' + friend.lastName" />
+        </v-template>
+      </ListView>
 
+      <Button v-if="isDevMode" height="10%" text="Clear" @tap="clearFriends" />
 
-             <TextView editable="false">
-                            <FormattedString>
-                                <Span
-                                    text="This is a text view that uses attributed text. You can use text attributes such as " />
-                                <Span text="bold, " fontWeight="Bold" />
-                                <Span text="italic " fontStyle="Italic" />
-                                <Span text="and " />
-                                <Span text="underline."
-                                    textDecoration="Underline" />
-                            </FormattedString>
-                        </TextView>
-
-                        <FriendlyMenu></FriendlyMenu>
-
-
-</GridLayout>
-</Page>
+      <FriendlyMenu></FriendlyMenu>
+    </GridLayout>
+  </Page>
 </template>
 
 <script>
-
-import App from './App';
-import AddFriend from './AddFriend';
-import FriendlyMenu from './FriendlyMenu';
+import App from "./App";
+import AddFriend from "./AddFriend";
+import FriendlyMenu from "./FriendlyMenu";
 export default {
-    components: {
-        FriendlyMenu
-    },
-    methods: {
-        testInsert() {
-            console.log('Testing insert functionality of the database')
-            /*
-            let zeke = { firstname: 'John', lastname: 'Ezekiel'}
-            this.$store.dispatch('insert', zeke) // insert person into db
-            */
-           this.$navigateTo(AddFriend, {
-               animated: true,
-               transition: {
-                   name: "slideLeft",
-                   duration: 250,
-                   curve: "easeIn"
-               }
-           })
-        },
-        testQuery() {
-            console.log('Testing query functionality of the database')
-            this.$store.dispatch('query') // load list into vuex
-            let data = this.$store.state.data
-            for(var i = 0; i < data.length; i++) {
-                console.log('First name: ' + data[i].firstname + ', Last Name: ' + data[i].lastname)
-            }
-        }
-    },
-    data () {
-        return {
-            addFriendPage: AddFriend,
-            FriendlyMenu: FriendlyMenu
-        };
-    },
-}
+  components: {
+    FriendlyMenu
+  },
+  mounted() {
+      this.$store.dispatch('getAllFriends');
+  },
+  computed: {
+      friends() {
+          return this.$store.state.friends;
+      },
+      isDevMode() {
+          return this.$store.state.isDevMode;
+      }
+  },
+  methods: {
+    clearFriends() {
+        this.$store.dispatch("clearFriends");
+    }
+  },
+  data() {
+    return {
+      addFriendPage: AddFriend,
+      FriendlyMenu: FriendlyMenu,
+    };
+  }
+};
 </script>
 
 <style scoped>
 .home-panel {
-    vertical-align: center;
-    font-size: 20;
-    margin: 15;
+  vertical-align: center;
+  font-size: 20;
+  margin: 15;
 }
 
 .description-label {
-    margin-bottom: 15;
+  margin-bottom: 15;
 }
 </style>
 {
