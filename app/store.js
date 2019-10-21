@@ -9,7 +9,7 @@ const store = new Vuex.Store({
     database: null,
     data: [],
     friends: [],
-    isDevMode: true,
+    isDevMode: false,
   },
   mutations: {
     init(state, data) {
@@ -41,21 +41,23 @@ const store = new Vuex.Store({
         });
 
         db.execSQL("CREATE TABLE IF NOT EXISTS friend_logs (id INTEGER PRIMARY KEY AUTOINCREMENT, friend_id INT, log_date DATE, log_rating INT, log_maximum INT, log_notes TEXT)").then(id => {
-          context.commit("init", {database: db});
+          context.commit("init", { database: db });
         }, error => {
           console.log("CREATE TABLE ERROR", error);
         });
 
         db.execSQL("CREATE TABLE IF NOT EXISTS friend_quotes (id INTEGER PRIMARY KEY AUTOINCREMENT, friend_id INT, quote_date DATE, quote_message TEXT)").then(id => {
-          context.commit("init", {database: db});
+          context.commit("init", { database: db });
         }, error => {
           console.log("CREATE TABLE ERROR", error);
         });
 
         console.log('The dev mode is ' + this.state.isDevMode);
-        if(this.state.isDevMode) {
+        /*
+        if (this.state.isDevMode) {
           db.execSQL("INSERT INTO friends(first_name, last_name) VALUES (?, ?)", ['Sample', 'Person']);
         }
+        */
       }, error => {
         console.log("OPEN DB ERROR", error);
       });
@@ -63,7 +65,7 @@ const store = new Vuex.Store({
     },
     createFriend(context, data) {
       context.state.database.execSQL("INSERT INTO friends(first_name, last_name) VALUES (?, ?)", [data.first_name, data.last_name]).then(id => {
-        context.commit("updateFriends", { data: data});
+        context.commit("updateFriends", { data: data });
       }, error => {
         console.log("INSERT ERROR", error);
       });
@@ -108,7 +110,7 @@ const store = new Vuex.Store({
      */
     clearFriends(context) {
       context.state.database.execSQL("DELETE FROM friends").then(result => {
-        context.commit("loadFriends", {data: {}});
+        context.commit("loadFriends", { data: {} });
       }, error => {
         console.log("CLEAR ERROR", error);
       });

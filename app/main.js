@@ -9,6 +9,10 @@ if(TNS_ENV !== 'production') {
   Vue.use(VueDevtools)
 }
 
+Vue.registerElement(
+  'CardView', () => require('@nstudio/nativescript-cardview').CardView
+);
+
 Vue.use(FriendlyMenu)
   
 // Prints Vue logs when --env.production is *NOT* set while building

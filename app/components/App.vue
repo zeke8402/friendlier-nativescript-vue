@@ -1,13 +1,17 @@
 <template>
   <Page>
     <GridLayout orientation="vertical" width="100%" height="100%" columns="*" rows="*,auto">
-      <ListView for="friend in friends">
-        <v-template>
-          <Label :text="friend.firstName + ' ' + friend.lastName" />
-        </v-template>
-      </ListView>
 
+
+<ScrollView orientation="vertical" scrollBarIndicatorVisible="true">
+<StackLayout orientation="vertical">
+    <FriendCard v-for="friend in friends" :friend="friend" />
+</StackLayout>
+</ScrollView>
+
+<!--
       <Button v-if="isDevMode" height="10%" text="Clear" @tap="clearFriends" />
+      -->
 
       <FriendlyMenu></FriendlyMenu>
     </GridLayout>
@@ -18,30 +22,36 @@
 import App from "./App";
 import AddFriend from "./AddFriend";
 import FriendlyMenu from "./FriendlyMenu";
+import FriendCard from "./FriendCard";
 export default {
   components: {
-    FriendlyMenu
+    FriendlyMenu,
+    FriendCard
   },
   mounted() {
-      this.$store.dispatch('getAllFriends');
+    this.$store.dispatch("getAllFriends");
   },
   computed: {
-      friends() {
-          return this.$store.state.friends;
-      },
-      isDevMode() {
-          return this.$store.state.isDevMode;
-      }
+    friends() {
+      return this.$store.state.friends;
+    },
+    isDevMode() {
+      return this.$store.state.isDevMode;
+    }
   },
   methods: {
+    goToFriendProfile(friend) {
+      console.log("yep");
+      this.$navigateTo(FriendProfile)
+    },
     clearFriends() {
-        this.$store.dispatch("clearFriends");
+      this.$store.dispatch("clearFriends");
     }
   },
   data() {
     return {
       addFriendPage: AddFriend,
-      FriendlyMenu: FriendlyMenu,
+      FriendlyMenu: FriendlyMenu
     };
   }
 };
@@ -57,5 +67,5 @@ export default {
 .description-label {
   margin-bottom: 15;
 }
+
 </style>
-{
