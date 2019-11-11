@@ -1,49 +1,75 @@
 <template>
-
-      <CardView class="friend-card" margin="20" elevation="20" radius='25'>
-          <StackLayout backgroundColor="3c495e" orientation="horizontal">
-              <Label horizontalAlignment="left" class="name-label text-center" width="60%" :text="friend.firstName + ' ' + friend.lastName" />
-              <Label horizontalAlignment="right" class="avg-score text-center" width="28%">
-                  <Span class='avg-span' text='0.00' verticalAlignment="center" />
-              </Label>
-          </StackLayout>
-      </CardView>
-    
+  <CardView class="friend-card" margin="20" elevation="2" radius="25">
+      <StackLayout orientation="horizontal">
+        <Image
+          horizontalAlignment="left"
+          class="profile-image"
+          stretch="fill"
+          width="20%"
+          :src="getProfilePhoto"
+        />
+        <StackLayout class="stacked-labels" width="50%">
+          <Label :text="friend.firstName + ' ' + friend.lastName" />
+          <Label text="Last updated: TBA" />
+        </StackLayout>
+        <Label horizontalAlignment="right" class="text-center" width="30%">
+          <Span class="avg-score" text="0.00" />
+        </Label>
+      </StackLayout>
+  </CardView>
 </template>
 <script>
 export default {
-    props: ['friend']
-}
+  props: ["friend"],
+  computed: {
+    getProfilePhoto() {
+      if (this.friend.photo) {
+        return this.friend.photo;
+      } else {
+        return "~/assets/images/no-image.png";
+      }
+    }
+  }
+};
 </script>
 <style scoped>
-.friend-card {
-    padding: 10;
-    height: 20%;
-    background-color: #1c6b48;
+.dev-primary {
+  background-color: #1c6b48;
+}
+
+.dev-secondary {
+  background-color: #43b883;
+}
+
+.dev-tertiary {
+  background-color: #5ff5f8;
 }
 
 .name-label {
-    text-align: center;
-    padding: 10;
-    margin: 10;
-    height: 300px;
-    font-size:15em;
-    font-weight: bold;
-    background-color: #43b883;
-    border-radius: 25px;
+  text-align: center;
+  padding: 10;
+  margin: 10;
+  font-size: 15em;
+  font-weight: bold;
+  border-radius: 25px;
+}
+
+.stacked-labels {
+  padding: 10;
 }
 
 .avg-score {
-    text-align: center;
-    padding: 10;
-    margin: 10;
-    height: 300px;
-    font-size: 25em;
-    background-color: #5ff4f8;
-    border-radius: 25px;
+  font-size: 30em;
 }
 
-.avg-span {
-    margin-top: 22%;
+.profile-image {
+  margin: 15px;
+  background-color: white;
+  border-radius: 50%;
+}
+
+.friend-card {
+  border: 15px;
+  border-radius: 50%;
 }
 </style>

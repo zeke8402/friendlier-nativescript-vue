@@ -2,11 +2,22 @@ import Vue from 'nativescript-vue'
 import App from './components/App'
 import FriendlyMenu from './components/FriendlyMenu'
 
-import VueDevtools from 'nativescript-vue-devtools'
+//import VueDevtools from 'nativescript-vue-devtools'
 import store from './store'
+import {TNSFontIcon, fonticon} from 'nativescript-fonticon';
+
+TNSFontIcon.debug = true;
+TNSFontIcon.paths = {
+  'fa': './font-awesome.css',
+  'ion': './ionicons.css'
+};
+TNSFontIcon.loadCss();
+
+Vue.filter('fonticon', fonticon);
+// done
 
 if(TNS_ENV !== 'production') {
-  Vue.use(VueDevtools)
+  //Vue.use(VueDevtools)
 }
 
 Vue.registerElement(

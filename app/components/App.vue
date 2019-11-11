@@ -1,8 +1,7 @@
 <template>
   <Page>
+    <ActionBar title="Friendlier" class="action-bar" />
     <GridLayout orientation="vertical" width="100%" height="100%" columns="*" rows="*,auto">
-
-
 <ScrollView orientation="vertical" scrollBarIndicatorVisible="true">
 <StackLayout orientation="vertical">
     <FriendCard v-for="friend in friends" :friend="friend" />

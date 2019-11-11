@@ -8,15 +8,16 @@
     "id": "org.friendlier.application",
     "templateVersion": "v2",
     "tns-android": {
-      "version": "6.0.0"
+      "version": "6.2.0"
     },
     "tns-ios": {
-      "version": "6.0.1"
+      "version": "6.2.0"
     }
   },
   "dependencies": {
     "@nstudio/nativescript-cardview": "^1.0.0",
     "@vue/devtools": "^5.0.6",
+    "nativescript-fonticon": "^2.0.0",
     "nativescript-socketio": "^3.2.1",
     "nativescript-sqlite": "^2.3.3",
     "nativescript-theme-core": "^1.0.6",
