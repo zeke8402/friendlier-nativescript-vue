@@ -19,8 +19,9 @@ const store = new Vuex.Store({
       state.friends = [];
       for (var i = 0; i < data.data.length; i++) {
         state.friends.push({
-          firstName: data.data[i][0],
-          lastName: data.data[i][1]
+          id: data.data[i][0],
+          firstName: data.data[i][1],
+          lastName: data.data[i][2]
         });
       }
     },
@@ -30,6 +31,12 @@ const store = new Vuex.Store({
         lastName: data.data.last_name,
       });
     },
+    updateDeletedFriend(state, data) {
+      let oldFriends = state.friends 
+      state.friends = oldFriends.filter(function(item) {
+        return friend.id !== data.data.id
+      });
+    }
   },
   actions: {
     init(context) {
@@ -70,6 +77,14 @@ const store = new Vuex.Store({
         console.log("INSERT ERROR", error);
       });
     },
+    deleteFriend(context, data) {
+      console.log("Data receivd: " + data.id);
+        context.state.database.execSQL("DELETE FROM friends WHERE id = ?", [data.id]).then( id => {
+          context.commit("updateDeletedFriend", { data: data});
+      }, error => {
+        console.log("DELETE ERROR", error);
+      })
+    },
     /*
     createFriendLog(context, data) {
       context.state.database.execSQL("INSERT INTO friend_logs (friend_id, log_date, log_rating, log_maximum, log_notes) VALUES (?, ?, ?, ?, ?)", 
@@ -96,7 +111,7 @@ const store = new Vuex.Store({
     },
     */
     getAllFriends(context) {
-      context.state.database.all("SELECT first_name, last_name FROM friends").then(result => {
+      context.state.database.all("SELECT id, first_name, last_name FROM friends").then(result => {
         context.commit("loadFriends", { data: result });
       }, error => {
         console.log("SELECT ERROR", error);

@@ -4,7 +4,8 @@
     <GridLayout orientation="vertical" width="100%" height="100%" columns="*" rows="*,auto">
 <ScrollView orientation="vertical" scrollBarIndicatorVisible="true">
 <StackLayout orientation="vertical">
-    <FriendCard v-for="friend in friends" :friend="friend" />
+    <NoFriendCard v-show="showNoFriendCard" /> 
+    <FriendCard v-for="friend in this.$store.state.friends" :key="friend.id" :friend="friend" />
 </StackLayout>
 </ScrollView>
 
@@ -22,17 +23,23 @@ import App from "./App";
 import AddFriend from "./AddFriend";
 import FriendlyMenu from "./FriendlyMenu";
 import FriendCard from "./FriendCard";
+import NoFriendCard from "./NoFriendCard";
 export default {
   components: {
     FriendlyMenu,
-    FriendCard
+    FriendCard,
+    NoFriendCard,
   },
   mounted() {
     this.$store.dispatch("getAllFriends");
   },
   computed: {
-    friends() {
-      return this.$store.state.friends;
+    showNoFriendCard() {
+      if(this.$store.state.friends.length === 0) {
+        return true;
+      } else {
+        return false;
+      }
     },
     isDevMode() {
       return this.$store.state.isDevMode;

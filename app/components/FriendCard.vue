@@ -1,5 +1,6 @@
 <template>
   <CardView class="friend-card" margin="20" elevation="2" radius="25">
+    <StackLayout>
       <StackLayout orientation="horizontal">
         <Image
           horizontalAlignment="left"
@@ -16,11 +17,37 @@
           <Span class="avg-score" text="0.00" />
         </Label>
       </StackLayout>
+      <StackLayout orientation="horizontal">
+        <Label width="80%" class="" text=" " />
+        <Button width="10%" class="delBtn" text="D" @tap="deleteFriend" />
+        <Button width="10%" class="forwardBtn" text="F" />
+      </StackLayout>
+    </StackLayout>
   </CardView>
 </template>
 <script>
 export default {
   props: ["friend"],
+  methods: {
+      close () {
+      // destroy the vue listeners, etc
+      this.$destroy();
+
+      // remove the element from the DOM
+      this.$el.parentNode.removeChild(this.$el);
+    },
+    deleteFriend() {
+      confirm({
+        title: "Are you sure you want to delete this friend?",
+        message: "The friend and their history will be deleted forever.",
+        okButtonText: "Delete",
+        cancelButtonText: "Close",
+      }).then(() => {
+        this.$store.dispatch("deleteFriend", this.friend); // insert person into db
+        this.close()
+      });
+    }
+  },
   computed: {
     getProfilePhoto() {
       if (this.friend.photo) {
@@ -72,4 +99,13 @@ export default {
   border: 15px;
   border-radius: 50%;
 }
+
+.delBtn {
+  color: red;
+}
+
+.forwardBtn {
+  color: green;
+}
+
 </style>

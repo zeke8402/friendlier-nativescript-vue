@@ -38,23 +38,24 @@ export default {
       this.$navigateTo(App, {});
     },
     submitFriend() {
-
       // Check for valid values
-      if(this.formFirstName !== '' && this.formLastName !== '') {
-        let friend = { first_name: this.formFirstName, last_name: this.formLastName};
+      if (this.formFirstName !== "" && this.formLastName !== "") {
+        let friend = {
+          first_name: this.formFirstName,
+          last_name: this.formLastName
+        };
         this.$store.dispatch("createFriend", friend); // insert person into db
+        this.$navigateTo(App, {
+          animated: true,
+          transition: {
+            name: "slideRight",
+            duration: 250,
+            curve: "easeIn"
+          }
+        });
       } else {
-        console.log('I refuse to make this friend without more details')
+        console.log("I refuse to make this friend without more details");
       }
-
-      this.$navigateTo(App, {
-        animated: true,
-        transition: {
-          name: "slideRight",
-          duration: 250,
-          curve: "easeIn"
-        }
-      });
     }
   }
 };
