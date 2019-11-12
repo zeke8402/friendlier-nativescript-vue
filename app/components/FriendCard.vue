@@ -96,22 +96,25 @@ export default {
 
 .stacked-labels {
   padding: 10;
+  color: white;
 }
 
 .avg-score {
+  color: white;
   font-size: 30em;
 }
 
 .profile-image {
   margin: 15px;
-  background-color: white;
   border-radius: 50%;
 }
 
 .friend-card {
+  background-color: #013220;
   border: 10px;
   border-radius: 50%;
   width: 88%;
+  opacity: 1;
 }
 
 .delBtn {
