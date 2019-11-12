@@ -1,19 +1,18 @@
 <template>
   <Page>
     <ActionBar title="Friendlier" class="action-bar" />
-    <GridLayout orientation="vertical" width="100%" height="100%" columns="*" rows="*,auto">
-<ScrollView orientation="vertical" scrollBarIndicatorVisible="true">
-<StackLayout orientation="vertical">
-    <NoFriendCard v-show="showNoFriendCard" /> 
-    <FriendCard v-for="friend in this.$store.state.friends" :key="friend.id" :friend="friend" @showFriendProfile="showFriendProfile" />
-</StackLayout>
-</ScrollView>
-
-<!--
-      <Button v-if="isDevMode" height="10%" text="Clear" @tap="clearFriends" />
-      -->
-
-      <FriendlyMenu></FriendlyMenu>
+    <GridLayout class="test-bg" orientation="vertical" width="100%" height="100%" columns="*" rows="*,auto">
+      <ScrollView orientation="vertical" scrollBarIndicatorVisible="true">
+        <StackLayout orientation="vertical">
+          <NoFriendCard v-show="showNoFriendCard" />
+          <FriendCard
+            v-for="friend in this.$store.state.friends"
+            :key="friend.id"
+            :friend="friend"
+            @showFriendProfile="showFriendProfile"
+          />
+        </StackLayout>
+      </ScrollView>
     </GridLayout>
   </Page>
 </template>
@@ -30,7 +29,7 @@ export default {
     FriendlyMenu,
     FriendCard,
     FriendProfile,
-    NoFriendCard,
+    NoFriendCard
   },
   mounted() {
     this.$store.dispatch("getAllFriends");
@@ -44,7 +43,7 @@ export default {
   },
   computed: {
     showNoFriendCard() {
-      if(this.$store.state.friends.length === 0) {
+      if (this.$store.state.friends.length === 0) {
         return true;
       } else {
         return false;
@@ -60,12 +59,12 @@ export default {
         props: {
           friend: friend
         }
-      })
+      });
     },
     clearFriends() {
       this.$store.dispatch("clearFriends");
     }
-  },
+  }
 };
 </script>
 
@@ -80,4 +79,12 @@ export default {
   margin-bottom: 15;
 }
 
+.test-bg {
+  width:100%;
+  height: 100%;
+  background-image: url("~/assets/images/background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
 </style>

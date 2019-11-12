@@ -109,8 +109,9 @@ export default {
 }
 
 .friend-card {
-  border: 15px;
+  border: 10px;
   border-radius: 50%;
+  width: 88%;
 }
 
 .delBtn {
