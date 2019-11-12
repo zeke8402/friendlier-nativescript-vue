@@ -20,7 +20,7 @@
       <StackLayout orientation="horizontal">
         <Label width="80%" class="" text=" " />
         <Button width="10%" class="delBtn" text="D" @tap="deleteFriend" />
-        <Button width="10%" class="forwardBtn" text="F" @tap="segueToFriendProfile" />
+        <Button width="10%" class="forwardBtn" text="F" @tap="showFriendProfile" />
       </StackLayout>
     </StackLayout>
   </CardView>
@@ -28,14 +28,16 @@
 <script>
   import FriendProfile from './FriendProfile'
 export default {
-  components: { FriendProfile },
   props: ["friend"],
   methods: {
-      segueToFriendProfile() {
-        this.$navigateTo(FriendProfile, {
-          frame: "frame"
-        })
-      },
+    showFriendProfile() {
+      //this.$emit("showFriendProfile", this.friend)
+      this.$navigateTo(FriendProfile, {
+        props: {
+          friend: this.friend
+        }
+      })
+    },
       close () {
       // destroy the vue listeners, etc
       this.$destroy();
@@ -55,6 +57,7 @@ export default {
       });
     }
   },
+  components: { FriendProfile },
   computed: {
     getProfilePhoto() {
       if (this.friend.photo) {
@@ -65,9 +68,7 @@ export default {
     }
   },
   data() {
-    return {
-      friendProfile: FriendProfile
-    }
+    return {}
   }
 };
 </script>

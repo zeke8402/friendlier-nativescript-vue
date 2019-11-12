@@ -21,6 +21,11 @@ export default {
         goBack() {
             this.$navigateTo(App, {});
         }
+    },
+    data() {
+        return {
+            FriendlyMenu: FriendlyMenu,
+        }
     }
     
 }

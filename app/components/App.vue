@@ -5,7 +5,7 @@
 <ScrollView orientation="vertical" scrollBarIndicatorVisible="true">
 <StackLayout orientation="vertical">
     <NoFriendCard v-show="showNoFriendCard" /> 
-    <FriendCard v-for="friend in this.$store.state.friends" :key="friend.id" :friend="friend" />
+    <FriendCard v-for="friend in this.$store.state.friends" :key="friend.id" :friend="friend" @showFriendProfile="showFriendProfile" />
 </StackLayout>
 </ScrollView>
 
@@ -24,14 +24,23 @@ import AddFriend from "./AddFriend";
 import FriendlyMenu from "./FriendlyMenu";
 import FriendCard from "./FriendCard";
 import NoFriendCard from "./NoFriendCard";
+import FriendProfile from "./FriendProfile";
 export default {
   components: {
     FriendlyMenu,
     FriendCard,
+    FriendProfile,
     NoFriendCard,
   },
   mounted() {
     this.$store.dispatch("getAllFriends");
+  },
+  data() {
+    return {
+      addFriendPage: AddFriend,
+      FriendlyMenu: FriendlyMenu,
+      friendProfile: FriendProfile
+    };
   },
   computed: {
     showNoFriendCard() {
@@ -46,20 +55,17 @@ export default {
     }
   },
   methods: {
-    goToFriendProfile(friend) {
-      console.log("yep");
-      this.$navigateTo(FriendProfile)
+    showFriendProfile(friend) {
+      this.$navigateTo(FriendProfile, {
+        props: {
+          friend: friend
+        }
+      })
     },
     clearFriends() {
       this.$store.dispatch("clearFriends");
     }
   },
-  data() {
-    return {
-      addFriendPage: AddFriend,
-      FriendlyMenu: FriendlyMenu
-    };
-  }
 };
 </script>
 
