@@ -1,5 +1,5 @@
 <template>
-  <CardView class="friend-card" margin="20" elevation="2" radius="25">
+  <CardView class="friend-card" margin="10" elevation="2" radius="25" @tap="showFriendProfile">
     <StackLayout>
       <StackLayout orientation="horizontal">
         <Image
@@ -10,18 +10,20 @@
           :src="getProfilePhoto"
         />
         <StackLayout class="stacked-labels" width="50%">
-          <Label :text="friend.firstName + ' ' + friend.lastName" />
-          <Label text="Last updated: TBA" />
+          <Label class="friend-data" :text="friend.firstName + ' ' + friend.lastName" />
+          <Label class="subtext" text="Last Score: TBA" />
         </StackLayout>
         <Label horizontalAlignment="right" class="text-center" width="30%">
           <Span class="avg-score" text="0.00" />
         </Label>
       </StackLayout>
+      <!--
       <StackLayout orientation="horizontal">
         <Label width="80%" class="" text=" " />
         <Button width="10%" class="delBtn" text="D" @tap="deleteFriend" />
         <Button width="10%" class="forwardBtn" text="F" @tap="showFriendProfile" />
       </StackLayout>
+      -->
     </StackLayout>
   </CardView>
 </template>
@@ -85,6 +87,11 @@ export default {
   background-color: #5ff5f8;
 }
 
+.friend-data {
+  font-family: "Nunito";
+  font-size: 25px;
+}
+
 .name-label {
   text-align: center;
   padding: 10;
@@ -110,11 +117,10 @@ export default {
 }
 
 .friend-card {
-  background-color: #013220;
+  background-color: #1C1E25;
   border: 10px;
   border-radius: 50%;
   width: 88%;
-  opacity: 1;
 }
 
 .delBtn {

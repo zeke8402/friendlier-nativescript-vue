@@ -3,11 +3,35 @@
 @import '~nativescript-theme-core/scss/dark';
 
 // Override variables here
-
 @import '~nativescript-theme-core/scss/index';
 
 // Global SCSS styling
 // @see https://docs.nativescript.org/ui/styling
+
+// Global variables, fingers crossed
+$base-text: 'Nunito';
+$header-text: 'Raleway';
+
 .fa {
     font-family: FontAwesome, fontawesome-webfont;
+}
+
+.friendlier-button {
+    color: white;
+    background-color: black;
+    border-radius: 25%;
+    padding: 40px;
+}
+
+.app-bg{
+  width:100%;
+  height: 100%;
+  background-image: url("~/assets/images/background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.subtext {
+    font-family: $base-text;
 }

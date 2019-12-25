@@ -1,17 +1,14 @@
 <template>
   <Page>
     <ActionBar title="Add Friend" class="action-bar" />
-    <GridLayout rows="*,60">
+    <GridLayout rows="*,60" class="app-bg">
       <ScrollView row="0">
         <StackLayout class="m-20">
-          <TextField v-model="formFirstName" hint="First Name" />
-          <TextField v-model="formLastName" hint="Last Name" />
-          <Button class="btn btn-primary" text="Submit" @tap="submitFriend"></Button>
+          <TextField v-model="formFirstName" class="test" hint="First Name" />
+          <TextField v-model="formLastName" class="test" hint="Last Name" />
+          <Button class="friendlier-button" text="Submit" @tap="submitFriend"></Button>
         </StackLayout>
       </ScrollView>
-      <StackLayout col="0" row="1" orientation="horizontal" backgroundColor="#FFFFFF" height="60">
-        <FriendlyMenu />
-      </StackLayout>
     </GridLayout>
   </Page>
 </template>
@@ -61,4 +58,7 @@ export default {
 };
 </script>
 <style scoped>
+.test {
+  placeholder-color: black;
+}
 </style>

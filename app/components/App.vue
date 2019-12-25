@@ -1,7 +1,7 @@
 <template>
   <Page>
     <ActionBar title="Friendlier" class="action-bar" />
-    <GridLayout class="test-bg" orientation="vertical" width="100%" height="100%" columns="*" rows="*,auto">
+    <GridLayout class="app-bg" orientation="vertical" width="100%" height="100%" columns="*" rows="*,auto">
       <ScrollView orientation="vertical" scrollBarIndicatorVisible="true">
         <StackLayout orientation="vertical">
           <NoFriendCard v-show="showNoFriendCard" />
@@ -9,8 +9,8 @@
             v-for="friend in this.$store.state.friends"
             :key="friend.id"
             :friend="friend"
-            @showFriendProfile="showFriendProfile"
           />
+          <FriendlierButton :navigateMethod="showAddFriend" />
         </StackLayout>
       </ScrollView>
     </GridLayout>
@@ -21,6 +21,7 @@
 import App from "./App";
 import AddFriend from "./AddFriend";
 import FriendlyMenu from "./FriendlyMenu";
+import FriendlierButton from "./custom/FriendlierButton";
 import FriendCard from "./FriendCard";
 import NoFriendCard from "./NoFriendCard";
 import FriendProfile from "./FriendProfile";
@@ -29,6 +30,7 @@ export default {
     FriendlyMenu,
     FriendCard,
     FriendProfile,
+    FriendlierButton,
     NoFriendCard
   },
   mounted() {
@@ -54,6 +56,9 @@ export default {
     }
   },
   methods: {
+    showAddFriend() {
+      this.$navigateTo(AddFriend)
+    },
     showFriendProfile(friend) {
       this.$navigateTo(FriendProfile, {
         props: {
