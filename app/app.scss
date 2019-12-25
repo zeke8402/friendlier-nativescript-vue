@@ -10,7 +10,9 @@
 
 // Global variables, fingers crossed
 $base-text: 'Nunito';
+$base-android-text: 'Nunito-Regular';
 $header-text: 'Raleway';
+$header-android-text: 'Raleway-Regular';
 
 .fa {
     font-family: FontAwesome, fontawesome-webfont;
@@ -33,5 +35,6 @@ $header-text: 'Raleway';
 }
 
 .subtext {
+    color: #46AFB9;
     font-family: $base-text;
 }

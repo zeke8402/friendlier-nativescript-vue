@@ -17,6 +17,7 @@
   "dependencies": {
     "@nstudio/nativescript-cardview": "^1.0.0",
     "@vue/devtools": "^5.3.2",
+    "nativescript-camera": "^4.5.0",
     "nativescript-fonticon": "^2.0.0",
     "nativescript-socketio": "^3.3.1",
     "nativescript-sqlite": "^2.3.3",

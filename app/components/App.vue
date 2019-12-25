@@ -1,7 +1,7 @@
 <template>
   <Page>
     <ActionBar title="Friendlier" class="action-bar" />
-    <GridLayout class="app-bg" orientation="vertical" width="100%" height="100%" columns="*" rows="*,auto">
+    <GridLayout class="test-bg" orientation="vertical" width="100%" height="100%" columns="*" rows="*,auto">
       <ScrollView orientation="vertical" scrollBarIndicatorVisible="true">
         <StackLayout orientation="vertical">
           <NoFriendCard v-show="showNoFriendCard" />

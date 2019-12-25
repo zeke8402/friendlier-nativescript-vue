@@ -10,7 +10,7 @@
           :src="getProfilePhoto"
         />
         <StackLayout class="stacked-labels" width="50%">
-          <Label class="friend-data" :text="friend.firstName + ' ' + friend.lastName" />
+          <Label class="header-text text-color" :text="friend.firstName + ' ' + friend.lastName" />
           <Label class="subtext" text="Last Score: TBA" />
         </StackLayout>
         <Label horizontalAlignment="right" class="text-center" width="30%">
@@ -87,8 +87,8 @@ export default {
   background-color: #5ff5f8;
 }
 
-.friend-data {
-  font-family: "Nunito";
+.header-text {
+  font-family: "Raleway";
   font-size: 25px;
 }
 
@@ -101,14 +101,17 @@ export default {
   border-radius: 25px;
 }
 
+.text-color {
+  color: #F5E4C3;
+}
+
 .stacked-labels {
   padding: 10;
-  color: white;
 }
 
 .avg-score {
-  color: white;
   font-size: 30em;
+  color: #DF8C95;
 }
 
 .profile-image {
@@ -117,7 +120,7 @@ export default {
 }
 
 .friend-card {
-  background-color: #1C1E25;
+  background-color: #184C51;
   border: 10px;
   border-radius: 50%;
   width: 88%;
@@ -130,5 +133,4 @@ export default {
 .forwardBtn {
   color: green;
 }
-
 </style>
