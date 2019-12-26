@@ -6,16 +6,14 @@
 
     <GridLayout class="bg-gradient" orientation="vertical" width="100%" height="100%" columns="*" rows="*,auto">
       <ScrollView orientation="vertical" scrollBarIndicatorVisible="true" class="text-center">
-        <StackLayout orientation="vertical" class="text-center">
+        <StackLayout orientation="vertical" class="m-20">
             <Image
                 class="profile-image"
                 width="50%"
                 stretch="fill"
                 :src="getProfilePhoto"
             />
-        </StackLayout>
-        <StackLayout orientation="vertical" class="text-center">
-            <Label class="name" :text="friend.firstName + ' ' + friend.lastName" />
+            <Label class="name" :text="friend.firstName + ' ' + friend.lastName" horizontalAlignment="center" />
             <Button text="Add Photo" @tap="addPhoto" />
         </StackLayout>
       </ScrollView>
@@ -37,17 +35,21 @@ export default {
     },
     computed: {
         fullName() {
-            console.log('HERE!!!!!! The photo output is ' + this.friend.photo)
             return this.friend.firstName + ' ' + this.friend.lastName;
         },
         getProfilePhoto() {
             if (this.base64Image) {
-                return 'data:Image/png;base64,' + this.base64Image
+                console.log('choosing base64')
+                return "data:Image/png;base64," + this.base64Image;
             } 
 
             if (this.friend.photo) {
-                return "data:Image/png;base64," + this.friend.photo
+                console.log('choosing friend')
+                return "data:Image/png;base64," + this.friend.photo;
             }
+
+            console.log('choosing camera')
+            return this.pictureFromCamera;
         }
     },
     methods: {
@@ -72,7 +74,7 @@ export default {
 }
 
 .name {
-    font-size: 50px;
+    font-size: 30px;
     font-family: 'Nunito';
 }
 </style>
