@@ -5,7 +5,6 @@ import FriendlyMenu from './components/FriendlyMenu'
 //import VueDevtools from 'nativescript-vue-devtools'
 import store from './store'
 import {TNSFontIcon, fonticon} from 'nativescript-fonticon';
-import * as camera from "nativescript-camera";
 
 TNSFontIcon.debug = true;
 TNSFontIcon.paths = {

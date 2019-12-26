@@ -1,7 +1,7 @@
 <template>
   <Page>
     <ActionBar title="Friendlier" class="action-bar" />
-    <GridLayout class="test-bg" orientation="vertical" width="100%" height="100%" columns="*" rows="*,auto">
+    <GridLayout class="bg-gradient" orientation="vertical" width="100%" height="100%" columns="*" rows="*,auto">
       <ScrollView orientation="vertical" scrollBarIndicatorVisible="true">
         <StackLayout orientation="vertical">
           <NoFriendCard v-show="showNoFriendCard" />
@@ -84,12 +84,15 @@ export default {
   margin-bottom: 15;
 }
 
-.test-bg {
+.bg-gradient {
   width:100%;
   height: 100%;
-  background-image: url("~/assets/images/background.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
+
+    background: #34e89e;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(45deg, #0f3443, #34e89e);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(45deg, #0f3443, #34e89e);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 </style>

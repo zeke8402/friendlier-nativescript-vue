@@ -21,7 +21,8 @@ const store = new Vuex.Store({
         state.friends.push({
           id: data.data[i][0],
           firstName: data.data[i][1],
-          lastName: data.data[i][2]
+          lastName: data.data[i][2],
+          photo: data.data[i][3]
         });
       }
     },
@@ -29,6 +30,7 @@ const store = new Vuex.Store({
       state.friends.push({
         firstName: data.data.first_name,
         lastName: data.data.last_name,
+        photo: data.data.photo
       });
     },
     updateDeletedFriend(state, data) {
@@ -40,8 +42,8 @@ const store = new Vuex.Store({
   },
   actions: {
     init(context) {
-      (new Sqlite("my.db")).then(db => {
-        db.execSQL("CREATE TABLE IF NOT EXISTS friends (id INTEGER PRIMARY KEY AUTOINCREMENT, first_name TEXT, last_name TEXT, birthday DATE)").then(id => {
+      (new Sqlite("test2.db")).then(db => {
+        db.execSQL("CREATE TABLE IF NOT EXISTS friends (id INTEGER PRIMARY KEY AUTOINCREMENT, first_name TEXT, last_name TEXT, birthday DATE, photo TEXT)").then(id => {
           context.commit("init", { database: db });
         }, error => {
           console.log("CREATE TABLE ERROR", error);
@@ -59,7 +61,6 @@ const store = new Vuex.Store({
           console.log("CREATE TABLE ERROR", error);
         });
 
-        console.log('The dev mode is ' + this.state.isDevMode);
         /*
         if (this.state.isDevMode) {
           db.execSQL("INSERT INTO friends(first_name, last_name) VALUES (?, ?)", ['Sample', 'Person']);
@@ -71,9 +72,10 @@ const store = new Vuex.Store({
 
     },
     createFriend(context, data) {
-      context.state.database.execSQL("INSERT INTO friends(first_name, last_name) VALUES (?, ?)", [data.first_name, data.last_name]).then(id => {
+      context.state.database.execSQL("INSERT INTO friends(first_name, last_name, photo) VALUES (?, ?, ?)", [data.first_name, data.last_name, data.photo]).then(id => {
         context.commit("updateFriends", { data: data });
       }, error => {
+        console.log(data)
         console.log("INSERT ERROR", error);
       });
     },
@@ -111,7 +113,7 @@ const store = new Vuex.Store({
     },
     */
     getAllFriends(context) {
-      context.state.database.all("SELECT id, first_name, last_name FROM friends").then(result => {
+      context.state.database.all("SELECT id, first_name, last_name, photo FROM friends").then(result => {
         context.commit("loadFriends", { data: result });
       }, error => {
         console.log("SELECT ERROR", error);

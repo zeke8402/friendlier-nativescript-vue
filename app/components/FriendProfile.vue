@@ -4,16 +4,18 @@
       <NavigationButton text="Go back" android.systemIcon="ic_menu_back" @tap="$navigateBack" />
       </ActionBar>
 
-    <GridLayout class="app-bg text-center" orientation="vertical" width="100%" height="100%" columns="*" rows="*,auto">
-      <ScrollView orientation="vertical" scrollBarIndicatorVisible="true">
+    <GridLayout class="bg-gradient" orientation="vertical" width="100%" height="100%" columns="*" rows="*,auto">
+      <ScrollView orientation="vertical" scrollBarIndicatorVisible="true" class="text-center">
         <StackLayout orientation="vertical" class="text-center">
             <Image
                 class="profile-image"
                 width="50%"
                 stretch="fill"
-                :src="pictureFromCamera"
+                :src="getProfilePhoto"
             />
-            <Label :text="friend.firstName" />
+        </StackLayout>
+        <StackLayout orientation="vertical" class="text-center">
+            <Label class="name" :text="friend.firstName + ' ' + friend.lastName" />
             <Button text="Add Photo" @tap="addPhoto" />
         </StackLayout>
       </ScrollView>
@@ -30,21 +32,21 @@ export default {
     data() {
         return {
             base64Image: null,
-            pictureFromCamera: null,
+            pictureFromCamera: "~/assets/images/no-image.png",
         }
     },
     computed: {
         fullName() {
+            console.log('HERE!!!!!! The photo output is ' + this.friend.photo)
             return this.friend.firstName + ' ' + this.friend.lastName;
         },
         getProfilePhoto() {
-            console.log(this.base64Image)
             if (this.base64Image) {
-                console.log('here we go again')
                 return 'data:Image/png;base64,' + this.base64Image
-            } else {
-                console.log('not your day')
-                return "~/assets/images/no-image.png";
+            } 
+
+            if (this.friend.photo) {
+                return "data:Image/png;base64," + this.friend.photo
             }
         }
     },
@@ -67,5 +69,10 @@ export default {
 <style scoped>
 .profile-image {
   border-radius: 100%;
+}
+
+.name {
+    font-size: 50px;
+    font-family: 'Nunito';
 }
 </style>
