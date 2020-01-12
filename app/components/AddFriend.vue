@@ -6,11 +6,11 @@
         <StackLayout class="m-20">
             <Image
                 class="profile-image"
-                width="50%"
+                width="25%"
                 stretch="fill"
                 :src="pictureFromCamera"
+                @tap="addPhoto"
             />
-          <Button class="friendlier-button" text="Add Photo" @tap="addPhoto"></Button>
           <TextField v-model="formFirstName" class="hint-placeholder" hint="First Name" />
           <TextField v-model="formLastName" class="hint-placeholder" hint="Last Name" />
 
@@ -92,6 +92,13 @@ export default {
 </script>
 <style scoped>
 .hint-placeholder {
-  color: black;
+  color: white;
+  placeholder-color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 92%;
+  height: 40em;
+  margin: 10em;
 }
+
+
 </style>
